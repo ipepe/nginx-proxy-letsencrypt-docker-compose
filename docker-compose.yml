@@ -10,11 +10,11 @@ services:
     environment:
       VIRTUAL_HOST: kitten.ipepe.pl
       LETSENCRYPT_HOST: kitten.ipepe.pl
-      LETSENCRYPT_EMAIL: letsencrypt@ipepe.pl⏎
+      LETSENCRYPT_EMAIL: letsencrypt@ipepe.pl
 
   nginx-proxy:
     image: nginx
-    container_name: nginx-proxy
+    container_name: nginx-proxy-nginx
     network_mode: bridge
     ports:
       - 80:80
@@ -29,7 +29,7 @@ services:
   docker-gen:
     image: jwilder/docker-gen
     command: -notify-sighup nginx-proxy -watch /etc/docker-gen/templates/nginx.tmpl /etc/nginx/conf.d/default.conf
-    container_name: nginx-proxy-gen
+    container_name: nginx-proxy-docker-gen
     depends_on:
       - nginx-proxy
     volumes_from:
@@ -43,7 +43,7 @@ services:
 
   letsencrypt:
     image: jrcs/letsencrypt-nginx-proxy-companion
-    container_name: nginx-proxy-le
+    container_name: nginx-proxy-letsencrypt
     depends_on:
       - nginx-proxy
       - docker-gen
