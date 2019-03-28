@@ -15,7 +15,7 @@ services:
 
   nginx-proxy:
     image: nginx
-    container_name: nginx-proxy-nginx
+    container_name: nginx-proxy
     network_mode: bridge
     ports:
       - 80:80
@@ -45,7 +45,7 @@ services:
 
   letsencrypt:
     image: jrcs/letsencrypt-nginx-proxy-companion
-    container_name: nginx-proxy-letsencrypt
+    container_name: nginx-proxy-le
     network_mode: bridge
     depends_on:
       - nginx-proxy
