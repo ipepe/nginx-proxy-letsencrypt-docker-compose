@@ -3,6 +3,7 @@ services:
   kitten:
     image: ipepe/kitten
     hostname: kitten.ipepe.pl
+    container_name: kitten-nginx
     restart: always
     network_mode: bridge
     expose:
