@@ -56,3 +56,19 @@ services:
       - ./data/certs:/etc/nginx/certs
       - /var/run/docker.sock:/var/run/docker.sock:ro
     restart: always
+
+  docker-gc:
+    restart: always
+    image: clockworksoul/docker-gc-cron
+    privileged: true
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - CLEAN_UP_VOLUMES=1
+      - GRACE_PERIOD_SECONDS=186400
+
+  docker-autoheal:
+    restart: always
+    image: willfarrell/autoheal
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
